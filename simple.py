@@ -2,6 +2,7 @@ import sys
 import time
 import logging
 
+
 def log_header(printHeader):
     """
         pune un header  de forma
@@ -18,6 +19,7 @@ def log_header(printHeader):
             logger.info('', extra=d)
         except Exception as e:
             raise Exception("logger header exception")
+
 
 def log_status(name, status):
     """

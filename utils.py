@@ -1,13 +1,7 @@
 from datetime import datetime
 import psutil
 import os
-import time
-import sys
-import random
-import time
-import logging
-import fancy
-import simple
+
 
 
 def get_time():
@@ -24,7 +18,7 @@ def check_if_process_runs(process_name):
     """
     verifica daca am un proces running cu numele specificat
     """
-    # caut numele in list de procese
+    # caut numele in lista de procese
     for proc in psutil.process_iter():
         try:
             # daca l-am gasit
