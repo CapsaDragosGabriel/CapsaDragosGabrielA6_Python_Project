@@ -8,28 +8,32 @@ import logging
 from datetime import datetime
 
 
-def getTime():
+def get_time():
+    """
+    :return:
+    data+ora curenta in format string
+    """
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     return current_time
 
 
-def checkIfProcessRunning(processName):
+def check_if_process_runs(process_name):
     """
     verifica daca am un proces running cu numele specificat
     """
-    # Iterate over the all the running process
+    # caut numele in list de procese
     for proc in psutil.process_iter():
         try:
-            # Check if process name contains the given name string.
-            if processName.lower() in proc.name().lower() and len(processName) == len(proc.name()):
+            # daca l-am gasit
+            if process_name.lower() in proc.name().lower() and len(process_name) == len(proc.name()):
                 return True
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
     return False
 
 
-def logHeader(printHeader):
+def log_header(printHeader):
     """
     pune un header  de forma
     Date+Time | Process Name | Status
@@ -96,7 +100,7 @@ def log_status_simple(name, status):
         raise Exception("logger exception")
 
 
-def logStatus(name, file, status):
+def logStatus(name, status):
     """
         pune linii de tipul:
         Date+Time |  ProcessName |  Status
@@ -119,6 +123,9 @@ def logStatus(name, file, status):
 
 
 def getName(path):
+    """
+    obtine numele procesului din calea executabilului
+    """
     i = 1
     ok = False
     while path[-i] != "\\" and i < len(path):
@@ -139,10 +146,11 @@ if __name__ == '__main__':
     if not os.path.isfile(sys.argv[3]):
         file_exists = False
 
-    print(sys.argv[1])
     path = sys.argv[1]
 
     processName = getName(path)
+
+    # aleg ce fel de formatare vreau sa aiba fisierul
 
     # logHeader(not file_exists)
     log_header_simple(not file_exists)
@@ -150,14 +158,14 @@ if __name__ == '__main__':
     print(processName)
 
     while True:
-        if not checkIfProcessRunning(processName):
+        if not check_if_process_runs(processName):
             print("nu-i pornit")
             # logStatus(processName, status=checkIfProcessRunning(processName))
-            log_status_simple(processName, status=checkIfProcessRunning(processName))
+            log_status_simple(processName, status=check_if_process_runs(processName))
             r = random.randint(1, 10)
             os.startfile(sys.argv[1])
         else:
             # logStatus(processName, status=checkIfProcessRunning(processName))
-            log_status_simple(processName, status=checkIfProcessRunning(processName))
+            log_status_simple(processName, status=check_if_process_runs(processName))
             print("e pornit ")
         time.sleep(int(sys.argv[2]))
