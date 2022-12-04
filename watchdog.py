@@ -6,9 +6,8 @@ import fancy
 import simple
 
 if __name__ == '__main__':
-    if len(sys.argv)==1:
-        print("Programul trebuie apelat sub forma: python3 watchdog.py cale_executabil interval fisier_log (mod) (timp total)")
     if len(sys.argv) < 4 or len(sys.argv) > 6:
+        print("Programul trebuie apelat sub forma: \npython3 watchdog.py cale_executabil interval fisier_log (mod) (timp total)")
         raise Exception("invalid number of arguments")
     file_exists = True
     if not os.path.isfile(sys.argv[3]):
