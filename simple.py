@@ -14,7 +14,7 @@ def log_header(printHeader):
     if printHeader:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
-        d = {'datetime': 'Date+Time', 'proc': 'Process_Name', 'status': 'Status'}
+        d = {'proc': 'Process_Name', 'status': 'Status'}
         try:
             logger.info('', extra=d)
         except Exception as e:
@@ -32,8 +32,8 @@ def log_status(name, status):
         status = "Alive"
     else:
         status = "Dead"
-    d = {'datetime': time.asctime(), 'spaces': ' ', 'proc': name,
-         'procspaces': ' ' * (15 + len("Process_Name") - len(name)), 'status': status}
+    d = {'proc': name,
+         'status': status}
     try:
         if status:
             logger.info("", extra=d)

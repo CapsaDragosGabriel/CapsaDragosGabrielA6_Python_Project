@@ -1,17 +1,26 @@
-from datetime import datetime
+import sys
 import psutil
 import os
 
 
+def get_run_time():
+    if len(sys.argv) == 6:
+        time = int(sys.argv[5])
+    else:
+        time = 0
+    return time
 
-def get_time():
-    """
-    :return:
-    data+ora curenta in format string
-    """
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    return current_time
+
+def get_mode():
+    mode = 's'
+    if len(sys.argv) == 5:
+        if sys.argv[4] == '-f':
+            mode = 'f'
+        elif sys.argv[4] == '-s':
+            mode = 's'
+        else:
+            raise Exception("invalid 4th argument: mode can be -f or -s (fancy/simple)")
+    return mode
 
 
 def check_if_process_runs(process_name):
