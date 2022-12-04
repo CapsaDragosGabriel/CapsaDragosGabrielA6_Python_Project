@@ -24,6 +24,7 @@ if __name__ == '__main__':
         simple.log_header(not file_exists)
 
     print(process_name)
+    print(mode)
     current_run_time = 0
     while True:
         if not utils.check_if_process_runs(process_name):
@@ -32,7 +33,10 @@ if __name__ == '__main__':
                 fancy.log_status(process_name, status=utils.check_if_process_runs(process_name))
             else:
                 simple.log_status(process_name, status=utils.check_if_process_runs(process_name))
-            os.startfile(sys.argv[1])
+            try:
+                os.startfile(sys.argv[1])
+            except Exception as e:
+                print(e)  # daca nu poate sa porneasca executabilul il voi lasa oricum sa faca logging
         else:
             if mode == 'f':
                 fancy.log_status(process_name, status=utils.check_if_process_runs(process_name))

@@ -4,6 +4,9 @@ import os
 
 
 def get_run_time():
+    """
+    obtin durata de rulare
+    """
     if len(sys.argv) == 6:
         time = int(sys.argv[5])
     else:
@@ -12,8 +15,11 @@ def get_run_time():
 
 
 def get_mode():
+    """
+    stabilesc modul de formatare
+    """
     mode = 's'
-    if len(sys.argv) == 5:
+    if len(sys.argv) >= 5:
         if sys.argv[4] == '-f':
             mode = 'f'
         elif sys.argv[4] == '-s':

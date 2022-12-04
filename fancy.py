@@ -9,9 +9,13 @@ def log_header(printHeader):
     Date+Time | Process Name | Status
     ---------------------------------
     """
-    logging.basicConfig(filename=sys.argv[3],
-                        format='%(datetime)s%(spaces)s| %(proc)s%(procspaces)s | %(status)s',
-                        filemode="a")
+    try:
+        logging.basicConfig(filename=sys.argv[3],
+                            format='%(datetime)s%(spaces)s| %(proc)s%(procspaces)s | %(status)s',
+                            filemode="a")
+    except Exception as e:
+        print(e)
+        raise Exception("Can't write in the file.")
     if printHeader:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
@@ -27,6 +31,7 @@ def log_header(printHeader):
         try:
             logger.info('', extra=d)
         except Exception as e:
+            print(e)
             raise Exception("logger filler line exception")
 
 
@@ -49,4 +54,5 @@ def log_status(name, status):
         else:
             logger.info("", extra=d)
     except Exception as e:
-        raise Exception("logger exception")
+        print(e)
+        raise Exception("logger status exception")
