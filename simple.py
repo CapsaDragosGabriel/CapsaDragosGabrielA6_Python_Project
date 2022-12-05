@@ -1,6 +1,6 @@
 import sys
-import time
 import logging
+import utils
 
 
 def log_header(printHeader):
@@ -10,7 +10,7 @@ def log_header(printHeader):
     """
     try:
         logging.basicConfig(filename=sys.argv[3],
-                            format='[%(asctime)s] %(proc)s %(status)s',
+                            format='[%(asctime)s] %(proc)s %(status)s %(cpu)s',
                             filemode="a")
     except Exception as e:
         print(e)
@@ -18,7 +18,7 @@ def log_header(printHeader):
     if printHeader:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
-        d = {'proc': 'Process_Name', 'status': 'Status'}
+        d = {'proc': 'Process_Name', 'status': 'Status', 'cpu': 'Cpu_Usage'}
         try:
             logger.info('', extra=d)
         except Exception as e:
@@ -37,8 +37,15 @@ def log_status(name, status):
         status = "Alive"
     else:
         status = "Dead"
-    d = {'proc': name,
-         'status': status}
+    if utils.get_process(name):
+        d = {'proc': name,
+             'status': status,
+             'cpu': utils.get_process(name).cpu_percent()}
+    else:
+        d = {'proc': name,
+             'status': status,
+             'cpu': "0%"}
+
     try:
         if status:
             logger.info("", extra=d)

@@ -15,6 +15,7 @@ def get_run_time():
 
 
 def get_mode():
+
     """
     stabilesc modul de formatare
     """
@@ -43,6 +44,19 @@ def check_if_process_runs(process_name):
             pass
     return False
 
+def get_process(process_name):
+    """
+    obtin procesul
+    """
+    # caut numele in lista de procese
+    for proc in psutil.process_iter():
+        try:
+            # daca l-am gasit
+            if process_name.lower() == proc.name().lower():
+                return proc
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return None
 
 def get_name(path):
     """

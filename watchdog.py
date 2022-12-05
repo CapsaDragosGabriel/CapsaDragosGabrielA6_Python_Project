@@ -27,25 +27,29 @@ if __name__ == '__main__':
     print(process_name)
     print(mode)
     current_run_time = 0
-    while True:
-        if not utils.check_if_process_runs(process_name):
-            print("dead")
-            if mode == 'f':
-                fancy.log_status(process_name, status=utils.check_if_process_runs(process_name))
+    try:
+        while True:
+            if not utils.check_if_process_runs(process_name):
+                print("dead")
+                if mode == 'f':
+                    fancy.log_status(process_name, status=utils.check_if_process_runs(process_name))
+                else:
+                    simple.log_status(process_name, status=utils.check_if_process_runs(process_name))
+                try:
+                    os.startfile(sys.argv[1])
+                except Exception as e:
+                    print(e)  # daca nu poate sa porneasca executabilul il voi lasa oricum sa faca logging
             else:
-                simple.log_status(process_name, status=utils.check_if_process_runs(process_name))
-            try:
-                os.startfile(sys.argv[1])
-            except Exception as e:
-                print(e)  # daca nu poate sa porneasca executabilul il voi lasa oricum sa faca logging
-        else:
-            if mode == 'f':
-                fancy.log_status(process_name, status=utils.check_if_process_runs(process_name))
-            else:
-                simple.log_status(process_name, status=utils.check_if_process_runs(process_name))
-            print("alive")
-        current_run_time += int(sys.argv[2])
-        if run_time != 0:
-            if current_run_time > run_time:
-                break
-        time.sleep(int(sys.argv[2]))
+                if mode == 'f':
+                    fancy.log_status(process_name, status=utils.check_if_process_runs(process_name))
+                else:
+                    simple.log_status(process_name, status=utils.check_if_process_runs(process_name))
+                print("alive")
+            current_run_time += int(sys.argv[2])
+            if run_time != 0:
+                if current_run_time > run_time:
+                    break
+            time.sleep(int(sys.argv[2]))
+    except:
+        print("Finished")
+
