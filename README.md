@@ -17,6 +17,7 @@ Output:
 log-ul
 
 Programul realizat de mine are cateva features in plus: 
+-adauga un header cand se creeaza fisierul respectiv
 -poti apela cu -s sau -f pentru a selecta modul de formatare (descris in cod)
 -poti adauga o durata de secunde care sa reprezinte durata de rulare a watchdog-ului.
 -se poate apela si fara aceste argumente astfel incat sa obtinem rezultatul dat ca exemplu
