@@ -10,6 +10,7 @@ Input:
 
 watchdog.py <nume_executabil> <timp_in_secunde> <nume_log>
 watchdog.py bitcoin_miner.exe 60 watchdog.log
+
 Output:
 
 log-ul
